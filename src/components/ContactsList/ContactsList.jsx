@@ -9,7 +9,7 @@ import {
 import { Button } from '../common.styled';
 
 const ContactsList = () => {
-  const contacts = useSelector(state => state.contacts);
+  const {items:contacts, isLoading, error } = useSelector(state => state.contacts);
   const filter = useSelector(state => state.filter);
   const { isLoggedIn } = useSelector(state => state.auth);
 
@@ -23,10 +23,11 @@ const ContactsList = () => {
     <p>Nothing to show</p>
   ) : (
     <ListWrapper>
-      {visibleContacts.map(({ id, name, number, isPrivate }) => {
+        {visibleContacts.map(({ id, name, phone, isPrivate }) => {
+        console.log(isPrivate);
         return (
           <li key={id}>
-            {name}: {number}
+            {name}: {phone}
             {isLoggedIn &&
               (isPrivate ? (
                 <PrivateContact>private</PrivateContact>
