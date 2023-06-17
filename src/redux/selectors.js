@@ -4,9 +4,10 @@ import { createSelector } from '@reduxjs/toolkit';
 //   console.log('selectAuth');
 //   return state.auth;
 // };
-export const selectContacts = state => state.contacts.items;
-export const selectFilter = state => state.filter;
+const selectContacts = state => state.contacts.items;
 const selfSelector = state => state;
+
+export const selectFilter = state => state.filter;
 
 export const selectAuth = createSelector([selfSelector], state => {
   console.log('selectAuth');
