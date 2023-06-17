@@ -3,11 +3,12 @@ import Section from 'components/Section';
 import ContactsList from 'components/ContactsList';
 import Filter from 'components/Filter';
 import ContactEditor from 'components/ContactEditor';
+import { selectAuth } from 'redux/selectors';
 
 import { Container } from 'pages/Pages.styled';
 
 export default function Home() {
-  const { isLoggedIn } = useSelector(state => state.auth);
+  const { isLoggedIn } = useSelector(selectAuth);
 
   return (
     <Container>

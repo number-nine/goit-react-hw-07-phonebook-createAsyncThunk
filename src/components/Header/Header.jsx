@@ -1,10 +1,11 @@
 import { useSelector } from 'react-redux';
 import { NavLinkStyled, HeaderStyled } from './Header.styled';
+import { selectAuth } from 'redux/selectors';
 
 import LoginForm from 'components/LoginForm';
 
 export default function Header() {
-  const { isLoggedIn } = useSelector(state => state.auth);
+  const { isLoggedIn } = useSelector(selectAuth);
 
   return (
     <HeaderStyled>

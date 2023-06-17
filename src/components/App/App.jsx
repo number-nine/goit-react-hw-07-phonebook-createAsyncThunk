@@ -5,15 +5,16 @@ import { useEffect } from 'react';
 import SharedLayout from 'components/SharedLayout';
 import Home from 'pages/Home';
 import Dashboard from 'pages/Dashboard';
-import {getAllContacts} from 'redux/contactOperations'
+import * as contactsAPI from 'redux/contactOperations';
+import { selectAuth } from 'redux/selectors';
 
 export default function App() {
   const dispatch = useDispatch();
 
-  const { isLoggedIn } = useSelector(state => state.auth);
+  const { isLoggedIn } = useSelector(selectAuth);
 
    useEffect(() => {
-     dispatch(getAllContacts());
+     dispatch(contactsAPI.getAllContacts());
    }, [dispatch]);
 
   return (

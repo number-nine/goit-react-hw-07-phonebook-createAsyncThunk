@@ -1,14 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { selectAuth } from 'redux/selectors';
 
 import { FormStyled, ButtonStyled, LabelStyled } from './LoginForm.styled';
 import { login, logout } from 'redux/authSlice';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const { userName: currentUser, isLoggedIn } = useSelector(
-    state => state.auth
-  );
+  const { userName: currentUser, isLoggedIn } = useSelector(selectAuth);
   const handleSubmit = e => {
     e.preventDefault();
     if (isLoggedIn) {
