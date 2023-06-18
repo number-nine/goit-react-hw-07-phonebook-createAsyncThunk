@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import  * as contactsAPI from './contactOperations';
+import * as contactsAPI from './contactOperations';
 
 const initialState = {
   items: [],
@@ -8,28 +8,27 @@ const initialState = {
   error: null,
 };
 
+const pendingFn = state => {
+  state.isLoading = true;
+  state.error = null;
+};
 
+const rejectedFn = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
 
 export const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
   extraReducers: {
-    [contactsAPI.getAllContacts.pending](state) {
-      state.isLoading = true;
-      state.error = null;
-    },
+    [contactsAPI.getAllContacts.pending]: pendingFn,
     [contactsAPI.getAllContacts.fulfilled](state, action) {
       state.isLoading = false;
       state.items = action.payload;
     },
-    [contactsAPI.getAllContacts.rejected](state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-    [contactsAPI.deleteContactById.pending](state) {
-      state.isLoading = true;
-      state.error = null;
-    },
+    [contactsAPI.getAllContacts.rejected]: rejectedFn,
+    [contactsAPI.deleteContactById.pending]: pendingFn,
     [contactsAPI.deleteContactById.fulfilled](state, action) {
       state.isLoading = false;
       const index = state.items.findIndex(
@@ -37,24 +36,14 @@ export const contactsSlice = createSlice({
       );
       state.items.splice(index, 1);
     },
-    [contactsAPI.deleteContactById.rejected](state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-    [contactsAPI.addContact.pending](state) {
-      state.isLoading = true;
-      state.error = null;
-    },
+    [contactsAPI.deleteContactById.rejected]: rejectedFn,
+    [contactsAPI.addContact.pending]: pendingFn,
     [contactsAPI.addContact.fulfilled](state, action) {
       state.isLoading = false;
       state.items.push(action.payload);
     },
-    [contactsAPI.addContact.rejected](state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+    [contactsAPI.addContact.rejected]: rejectedFn,
   },
 });
-
 
 export default contactsSlice.reducer;
