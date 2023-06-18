@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as contactsAPI from 'redux/contactOperations';
 import {
   selectAuth,
+  // selectIsLoading,
   // selectContacts,
   selectVisibleContacts,
 } from 'redux/selectors';
@@ -13,9 +14,11 @@ import {
   SharedContact,
 } from './ContactsList.styled';
 import { Button } from '../common.styled';
+// import SplashScreen from 'components/SplashScreen';
+
 
 const ContactsList = () => {
-  // const { isLoading, error } = useSelector(selectContacts);
+  // const isLoading = useSelector(selectIsLoading);
   const { isLoggedIn } = useSelector(selectAuth);
   const visibleContacts = useSelector(selectVisibleContacts);
 
@@ -29,7 +32,7 @@ const ContactsList = () => {
     <p>Nothing to show</p>
   ) : (
     <ListWrapper>
-        {visibleContacts.map(({ id, name, phone, isPrivate }) => {
+      {visibleContacts.map(({ id, name, phone, isPrivate }) => {
         // console.log(isPrivate);
         return (
           <li key={id}>
@@ -45,9 +48,10 @@ const ContactsList = () => {
                 type="button"
                 onClick={() => dispatch(contactsAPI.deleteContactById(id))}
               >
-                Delete
+                 Delete
               </Button>
             )}
+            {/* {isLoading && <SplashScreen/>} */}
           </li>
         );
       })}
